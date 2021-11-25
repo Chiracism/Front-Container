@@ -306,6 +306,12 @@ export default function Mouvement() {
     );
   }, [surestariedaterestitutionInput, surestariedatearriveeInput]);
 
+  const datainferieur = 14;
+
+  useEffect(() => {
+    setSurestariesDureesInput(surestariedetentionInput - datainferieur);
+  }, [surestariedetentionInput, datainferieur]);
+
   /**
    * Informations for Table
    */
