@@ -43,7 +43,7 @@ export default function Mouvement() {
   // const [surestariesizeInput, setSurestarieSizeInput] = useState('');
   const [surestarienombreInput, setSurestarieNombreInput] = useState('');
   const [surestariedaterestitutionInput, setSurestarieDateRestitutionInput] = useState(date);
-  const [surestariecautionverseeInput, setSurestarieCautionVerseeInput] = useState('');
+  const [surestariecautionverseeInput, setSurestarieCautionVerseeInput] = useState(1000);
   const [surestarienlsInput, setSurestarieNlsInput] = useState('');
   const [surestariedatelsInput, setSurestarieDateLsInput] = useState('');
   // const [surestariechoixtypeInput, setSurestarieChoixTypeInput] = useState('');
@@ -298,23 +298,127 @@ export default function Mouvement() {
       .catch(() => {});
   }, []);
 
+  // Get the number of day between of two dates
+
   useEffect(() => {
     setSurestarieDetentionInput(
       (new Date(surestariedaterestitutionInput).getTime() -
         new Date(surestariedatearriveeInput).getTime()) /
-        86400000
+        86400000 +
+        1
     );
   }, [surestariedaterestitutionInput, surestariedatearriveeInput]);
 
+  const datanormal = 32;
   const datainferieur = 14;
+  // const data
 
-  useEffect(() => {
-    setSurestariesDureesInput(surestariedetentionInput - datainferieur);
-  }, [surestariedetentionInput, datainferieur]);
+  // function dureeOne(surestariedetentionInput) {
+  //   if (surestariedetentionInput < 32) {
+  //     return 0;
+  //   }
+
+  //   if (surestariedetentionInput > 33) {
+  //     return surestariedetentionInput - 32;
+  //   }
+  //   elseif(surestariedetentionInput < 46) {
+  //   return surestariedetentionInput - 14;
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   setSurestariesDureesInput(surestariedetentionInput - datanormal);
+  // }, [surestariedetentionInput, datanormal]);
+
+  // useEffect(() => {
+  //   setSurestarieDureeInput(
+  //     if (surestariedetentionInput < 14 ){
+  //       return surestariedetentionInput;
+  //     }
+  //   );
+  // }, [surestariedetentionInput, datainferieur]);
 
   /**
    * Informations for Table
    */
+
+  // useEffect(() => {
+  //   surestariedureeInput(surestariedetentionInput - );
+  // }, [surestariedetentionInput]);
+
+  // Variables
+  const [datafraisduree, setDataFraisDuree] = useState(0);
+  const [datafraisdurees, setDataFraisDurees] = useState(0);
+
+  function validateCalcul() {
+    if (surestariesizeInput === '20') {
+      if (surestariedetentionInput < 33) {
+        setSurestarieDureeInput(0);
+        setSurestariesDureesInput(0);
+        setSurestarieFacturerInput(0);
+        setSurestarieFraisInput(0);
+        setSurestarieRembourserInput(surestariecautionverseeInput);
+        setSurestarieTotalInput(0);
+      } else if (surestariedetentionInput < 47) {
+        setSurestarieDureeInput(surestariedetentionInput - 32);
+        setSurestariesDureesInput(0);
+        setSurestarieFacturerInput(surestariefraisInput);
+        setSurestarieFraisInput((surestariedetentionInput - 32) * 10);
+        if (surestariecautionverseeInput > surestariefraisInput) {
+          setSurestarieRembourserInput(surestariecautionverseeInput - surestariefraisInput);
+        } else {
+          setSurestarieRembourserInput(surestariefraisInput - surestariecautionverseeInput);
+        }
+        setSurestarieTotalInput(surestariefraisInput);
+      } else {
+        setSurestarieDureeInput(14);
+        setSurestariesDureesInput(surestariedetentionInput - 32 - 14);
+        setSurestarieFacturerInput(surestariefraisInput);
+        setSurestarieFraisInput(
+          surestariedureeInput * 10 + (surestariedetentionInput - 32 - 14) * 20
+        );
+        if (surestariecautionverseeInput > surestariefraisInput) {
+          setSurestarieRembourserInput(surestariecautionverseeInput - surestariefraisInput);
+        } else {
+          setSurestarieRembourserInput(surestariefraisInput - surestariecautionverseeInput);
+        }
+        setSurestarieTotalInput(surestariefraisInput);
+      }
+    } else if (surestariesizeInput === '40') {
+      if (surestariedetentionInput < 33) {
+        setSurestarieDureeInput(0);
+        setSurestariesDureesInput(0);
+        setSurestarieFacturerInput(0);
+        setSurestarieFraisInput(0);
+        setSurestarieRembourserInput(surestariecautionverseeInput);
+        setSurestarieTotalInput(0);
+      } else if (surestariedetentionInput < 47) {
+        setSurestarieDureeInput(surestariedetentionInput - 32);
+        setSurestariesDureesInput(0);
+        setSurestarieFacturerInput(surestariefraisInput);
+        setSurestarieFraisInput(surestariedureeInput * 20 + surestariesdureesInput * 20);
+        if (surestariecautionverseeInput > surestariefraisInput) {
+          setSurestarieRembourserInput(surestariecautionverseeInput - surestariefraisInput);
+        } else {
+          setSurestarieRembourserInput(surestariefraisInput - surestariecautionverseeInput);
+        }
+        setSurestarieTotalInput(surestariefraisInput);
+      } else {
+        setSurestarieDureeInput(14);
+        setSurestariesDureesInput(surestariedetentionInput - 32 - 14);
+        setSurestarieFacturerInput(surestariefraisInput);
+        setSurestarieFraisInput(
+          surestariedureeInput * 20 + (surestariedetentionInput - 32 - 14) * 40
+        );
+        if (surestariecautionverseeInput > surestariefraisInput) {
+          setSurestarieRembourserInput(surestariecautionverseeInput - surestariefraisInput);
+        } else {
+          setSurestarieRembourserInput(surestariefraisInput - surestariecautionverseeInput);
+        }
+        setSurestarieTotalInput(surestariefraisInput);
+      }
+    }
+  }
 
   useEffect(() => {
     // Get User Auth
@@ -526,6 +630,7 @@ export default function Mouvement() {
               <Autocomplete
                 className="combo-box-completion"
                 options={sureschoixTab}
+                // value={choix(Exportation)}
                 onChange={(event, newType) => {
                   if (newType) {
                     setSuresChoixInput(newType.name);
@@ -770,6 +875,11 @@ export default function Mouvement() {
               // total={}
               rows={[]}
             />
+          </div>
+          <div>
+            <Button variant="contained" color="primary" onClick={() => validateCalcul()}>
+              CALCUL
+            </Button>
           </div>
         </Card>
       </Container>
