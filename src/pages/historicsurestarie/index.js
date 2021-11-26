@@ -22,45 +22,36 @@ import {
 import { makeStyles } from '@material-ui/styles';
 
 import ReactToPrint from 'react-to-print';
-import ComponentToPrint from './ComponentToPrint';
+import ComponentToPrintSurestarie from './ComponentToPrintSurestarie';
 
 // components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import { UserListHead } from '../../components/_dashboard/user';
-import { HistoricListToolbar } from '../../components/_dashboard/historic';
+import { HistoricSurestarieListToolbar } from '../../components/_dashboard/historicsurestarie';
 import { CheckUserAuth } from '../../utils/auth';
 
-import './Historic.css';
+import './HistoricSurestarie.css';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'number', label: 'Numéro', alignRight: false },
-  // { id: 'pays_id', label: 'Pays', alignRight: false },
-  { id: 'type_conteneur_id', label: 'Type', alignRight: false },
-  { id: 'taille_conteneur_id', label: 'Taille', alignRight: false },
-  // { id: 'materiel_id', label: 'Matériel', alignRight: false },
-  // { id: 'proprietaire_id', label: 'Propriétaire', alignRight: false },
-  { id: 'etat_conteneur_id', label: 'Etat', alignRight: false },
-  // { id: 'constructeur', label: 'Constructeur', alignRight: false },
-  { id: 'date_fabrication', label: 'Date Fab.', alignRight: false },
-  { id: 'date_entrer_service', label: 'Date E/S.', alignRight: false },
-  { id: 'date_derniere_inspection', label: 'Date D/I.', alignRight: false },
-  { id: 'valeur_assuree', label: 'Valeur Assurée', alignRight: false },
-  { id: 'devise_id', label: 'Devise', alignRight: false },
-  // { id: 'societe_inspection', label: 'Société Insp.', alignRight: false },
-  // { id: 'dernier_constat', label: 'Dernier Const.', alignRight: false },
-  { id: 'site_id', label: 'Site', alignRight: false },
-  // { id: 'sous_site_id', label: 'Sous-site', alignRight: false },
-  // { id: 'date_mouvement', label: 'Date Mouv.', alignRight: false },
-  // { id: 'observation', label: 'Observation', alignRight: false },
-  // { id: 'client', label: 'Client', alignRight: false },
-  // { id: 'date_operation', label: 'Date Op.', alignRight: false },
-  { id: 'montant', label: 'Montant', alignRight: false },
-  { id: 'numero_recu', label: 'Numéro Réçu', alignRight: false },
-  { id: 'name', label: 'Utilisateur', alignRight: false },
+  { id: 'surestariedate', label: 'Date Surestarie', alignRight: false },
+  { id: 'numero', label: 'N° Conteneur', alignRight: false },
+  { id: 'size', label: 'Taille', alignRight: false },
+  { id: 'exnavire', label: 'Navire', alignRight: false },
+  { id: 'port', label: 'Port', alignRight: false },
+  { id: 'nombreconteneur', label: 'Nombre', alignRight: false },
+  { id: 'cautionversee', label: 'Caution', alignRight: false },
+  { id: 'choixtype', label: 'Mode', alignRight: false },
+  { id: 'datearrivee', label: 'Date Arrivée', alignRight: false },
+  { id: 'restitutiondate', label: 'Date Restitution.', alignRight: false },
+  { id: 'detention', label: 'Nombre des Jours', alignRight: false },
+  { id: 'frais', label: 'Frais', alignRight: false },
+  { id: 'rembourser', label: 'Montant Rembourser', alignRight: false },
+  { id: 'total', label: 'Total', alignRight: false },
+  // { id: 'name', label: 'Utilisateur', alignRight: false },
   // { id: 'date', label: 'Date', alignRight: false },
   { id: '' }
 ];
@@ -90,24 +81,24 @@ export default function User() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [historic, setHistoric] = useState([]);
+  const [historicsurestarie, setHistoricSurestarie] = useState([]);
   const componentRef = useRef();
 
   useEffect(() => {
-    axios(`${process.env.REACT_APP_BASE_URL}/masterfile/`, {
+    axios(`${process.env.REACT_APP_BASE_URL}/surestarie/`, {
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`
       }
     })
       .then((value) => {
-        setHistoric(value.data);
+        setHistoricSurestarie(value.data);
       })
       .catch(() => {});
   }, []);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = historic.map((n) => n.client);
+      const newSelecteds = historicsurestarie.map((n) => n.numero);
       setSelected(newSelecteds);
       return;
     }
@@ -145,23 +136,24 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - historic.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - historicsurestarie.length) : 0;
 
-  const isUserNotFound = historic.length === 0;
+  const isUserNotFound = historicsurestarie.length === 0;
 
   return (
-    <Page title="Historique | LMC App">
+    <Page title="Historique Surestarie | LMC App">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Historique
+            Historique Surestarie
           </Typography>
         </Stack>
 
         <CheckUserAuth />
 
         <Card>
-          <HistoricListToolbar
+          <HistoricSurestarieListToolbar
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
@@ -172,39 +164,36 @@ export default function User() {
               <Table>
                 <UserListHead
                   headLabel={TABLE_HEAD}
-                  rowCount={historic.length}
+                  rowCount={historicsurestarie.length}
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {historic
+                  {historicsurestarie
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       const {
                         id,
-                        number,
-                        paysid,
-                        typeconteneurid,
-                        tailleconteneurid,
-                        materielid,
-                        proprietaireid,
-                        etatconteneurid,
-                        constructeur,
-                        datefabrication,
-                        dateentrerservice,
-                        datederniereinspection,
-                        valeurassuree,
-                        deviseid,
-                        societeinspection,
-                        dernierconstat,
-                        siteid,
-                        soussiteid,
-                        datemouvement,
-                        observation,
+                        surestariedate,
+                        numero,
+                        exnavire,
+                        datearrivee,
                         client,
-                        dateoperation,
-                        montant,
-                        numerorecu,
+                        port,
+                        size,
+                        nombreconteneur,
+                        restitutiondate,
+                        cautionversee,
+                        nls,
+                        lsdate,
+                        choixtype,
+                        detention,
+                        surestarieduree,
+                        surestariesduree,
+                        frais,
+                        facturer,
+                        rembourser,
+                        total,
                         date,
                         name
                       } = row;
@@ -223,13 +212,13 @@ export default function User() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, number)}
+                              onChange={(event) => handleClick(event, surestariedate)}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {number}
+                                {surestariedate}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -237,88 +226,102 @@ export default function User() {
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {typeconteneurid}
+                                {numero}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {tailleconteneurid}
+                                {size}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {etatconteneurid}
+                                {exnavire}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {datefabrication}
+                                {port}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {dateentrerservice}
+                                {nombreconteneur}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {datederniereinspection}
+                                {cautionversee}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {valeurassuree}
+                                {choixtype}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {deviseid}
+                                {datearrivee}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {siteid}
+                                {restitutiondate}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {montant}
+                                {detention}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
-                                {numerorecu}
+                                {frais}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
+                            <Stack direction="row" justifyContent="center" spacing={2}>
+                              <Typography variant="subtitle2" noWrap>
+                                {rembourser}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell component="th" scope="row" padding="none">
+                            <Stack direction="row" justifyContent="center" spacing={2}>
+                              <Typography variant="subtitle2" noWrap>
+                                {total}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          {/* <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
                                 {name}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          {/* <TableCell component="th" scope="row" padding="none">
+                          <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" justifyContent="center" spacing={2}>
                               <Typography variant="subtitle2" noWrap>
                                 {date}
@@ -350,14 +353,14 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={historic.length}
+            count={historicsurestarie.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-        {historic.length > 0 ? (
+        {historicsurestarie.length > 0 ? (
           <Card className="card-botton-wrapper-2">
             <Box className="box-botton-wrapper" />
             <div>
@@ -372,7 +375,7 @@ export default function User() {
                 content={() => componentRef.current}
                 suppressErrors
               />
-              <ComponentToPrint ref={componentRef} rows={historic} />
+              <ComponentToPrintSurestarie ref={componentRef} rows={historicsurestarie} />
             </div>
           </Card>
         ) : null}

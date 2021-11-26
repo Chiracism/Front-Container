@@ -69,8 +69,13 @@ export default function SidebarConfig() {
           icon: getIcon(fileTextFill)
         },
         {
-          title: 'historique',
+          title: 'Historique MasterFile',
           path: '/dashboard/historique',
+          icon: getIcon(listFill)
+        },
+        {
+          title: 'Historique Surestarie',
+          path: '/dashboard/historicsurestarie',
           icon: getIcon(listFill)
         },
         // {

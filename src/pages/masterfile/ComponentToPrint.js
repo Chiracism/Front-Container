@@ -10,7 +10,7 @@ class ComponentToPrint extends React.PureComponent {
   }
 
   render() {
-    const { rows, client, total } = this.props;
+    const { rows, client, number, typeconteneurid, tailleconteneurid, constructeur } = this.props;
     const { date } = this.state;
 
     return (
@@ -47,31 +47,73 @@ class ComponentToPrint extends React.PureComponent {
           </div>
         </div>
         <h3 className="print-source" style={{ textAlign: 'center' }}>
-          CONTENEUR
+          FICHE CONTENEUR
         </h3>
         <p className="print-source" style={{ textAlign: 'right', margin: '2rem 1rem 3rem 0' }}>
           <strong> Client </strong> : <span>{client}</span>
         </p>
+        {/* <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 1rem 4.5rem' }}>
+          <span>{client.address}</span>
+        </p> */}
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 1rem' }}>
+          <strong>N° Conteneur</strong> : <span>{number}</span>
+        </p>
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 6.8rem' }}>
+          <strong>Type Conteneur</strong> : <span>{typeconteneurid}</span>
+        </p>
+        <p className="print-source" style={{ textAlign: 'right', margin: '2rem 1rem 3rem 0' }}>
+          <strong>Taille Conteneur</strong> : <span>{tailleconteneurid}</span>
+        </p>
+        <p className="print-source" style={{ textAlign: 'left', margin: '1rem 1rem 0rem 1rem' }}>
+          <strong>Constructeur</strong> : <span>{constructeur}</span>
+        </p>
+        {/* <div
+          className="print-source"
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', width: '100%' }}
+        >
+          <table className="print-source" style={{ width: '100%' }}>
+            <thead>
+              <th>N° Conteneur</th>
+              <th>Type/Conteneur</th>
+              <th>Taille/Conteneur</th>
+              <th>Contructeur</th>
+            </thead>
+            <tbody style={{ width: '100%' }}>
+              {rows.map((value, key) => {
+                const { number, typeconteneurid, tailleconteneurid, constructeur } = value;
+                return (
+                  <tr key={key} style={{ textAlign: 'center' }}>
+                    <td>{number}</td>
+                    <td>{typeconteneurid}</td>
+                    <td>{tailleconteneurid}</td>
+                    <td>{constructeur}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div> */}
         <div
           className="print-source"
           style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', width: '100%' }}
         >
           <table className="print-source" style={{ width: '100%' }}>
             <thead>
-              <th>N° Item</th>
-              <th>Descriptions</th>
-              <th>Poids/Volume</th>
-              <th>Montant</th>
+              <th>Date Fabrication</th>
+              <th>Date Entrer en Service</th>
+              <th>Date Inspection</th>
+              <th>Constat</th>
             </thead>
             <tbody style={{ width: '100%' }}>
               {rows.map((value, key) => {
-                const { number, description, weight, price } = value;
+                const { datefabrication, dateentrerservice, datederniereinspection, constat } =
+                  value;
                 return (
                   <tr key={key} style={{ textAlign: 'center' }}>
-                    <td>{number}</td>
-                    <td>{description}</td>
-                    <td>{weight}</td>
-                    <td>{price}</td>
+                    <td>{datefabrication}</td>
+                    <td>{dateentrerservice}</td>
+                    <td>{datederniereinspection}</td>
+                    <td>{constat}</td>
                   </tr>
                 );
               })}
@@ -88,14 +130,14 @@ class ComponentToPrint extends React.PureComponent {
             margin: '3rem 1rem 3rem 0'
           }}
         >
-          <p>
+          {/* <p>
             <strong>TVA</strong>
-          </p>
-          <p>
+          </p> */}
+          {/* <p>
             <strong>Montant Net</strong> : {total} FC
-          </p>
+          </p> */}
           <p>
-            <strong>Date</strong> : le {date}
+            <strong> Date </strong> : {date}
           </p>
         </div>
         <div

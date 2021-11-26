@@ -13,6 +13,7 @@ import Mouvement from './pages/mouvement/mouvement';
 import Reparation from './pages/reparation/reparation';
 import Surestarie from './pages/surestarie/surestarie';
 import Historic from './pages/historic';
+import HistoricSurestarie from './pages/historicsurestarie';
 import ImportationHistoric from './pages/historicImportation';
 import Categorie from './pages/categorie';
 import Client from './pages/client';
@@ -71,6 +72,7 @@ export default function Router() {
         { path: 'chargeur', element: <Chargeur /> },
         { path: 'agence', element: <Agence /> },
         { path: 'historique', element: <Historic /> },
+        { path: 'historicsurestarie', element: <HistoricSurestarie /> },
         { path: 'import-historique', element: <ImportationHistoric /> }
       ]
     },

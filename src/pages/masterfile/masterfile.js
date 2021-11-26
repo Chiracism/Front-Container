@@ -790,8 +790,14 @@ export default function Masterfile() {
             />
             <ComponentToPrint
               ref={componentRef}
-              client={navirenameInput}
-              total={portnameInput}
+              number={masternumber}
+              typeconteneurid={mastertype}
+              tailleconteneurid={mastersizeInput}
+              client={masterclient}
+              datefabrication={masterdatefab}
+              dateentrerservice={masterdateentrer}
+              datederniereinspectioni={masterdatederniere}
+              dernierconstat={masterdernierconst}
               rows={[]}
             />
           </div>
