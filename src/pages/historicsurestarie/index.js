@@ -76,9 +76,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User() {
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState('surestariedate');
   const [selected, setSelected] = useState([]);
   const [filterName, setFilterName] = useState('');
+  const [orderBy, setOrderBy] = useState('surestariedate');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [historicsurestarie, setHistoricSurestarie] = useState([]);
@@ -164,6 +165,8 @@ export default function User() {
               <Table>
                 <UserListHead
                   headLabel={TABLE_HEAD}
+                  order={order}
+                  orderBy={orderBy}
                   rowCount={historicsurestarie.length}
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}

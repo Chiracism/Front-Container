@@ -1,7 +1,7 @@
 import React from 'react';
 import './Surestarie.css';
 
-class ComponentToPrintMouv extends React.PureComponent {
+class ComponentToPrintSurest extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +10,7 @@ class ComponentToPrintMouv extends React.PureComponent {
   }
 
   render() {
-    const { rows, client, total } = this.props;
+    const { rows, client, total, numero, port, size, detention } = this.props;
     const { date } = this.state;
 
     return (
@@ -47,12 +47,36 @@ class ComponentToPrintMouv extends React.PureComponent {
           </div>
         </div>
         <h3 className="print-source" style={{ textAlign: 'center' }}>
-          NOTE DE DEBIT
+          NOTE DE DEBIT N° ............/20
         </h3>
         <p className="print-source" style={{ textAlign: 'right', margin: '2rem 1rem 3rem 0' }}>
           <strong>Client</strong> : <span>{client}</span>
         </p>
-        <div
+        <br />
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 1rem' }}>
+          <strong>N° Conteneur</strong> : <span>{numero}</span>
+        </p>
+        <br />
+        {/* <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 6.8rem' }}> */}
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 1rem' }}>
+          <strong>Taille Conteneur</strong> : <span>{size}</span>
+        </p>
+        <br />
+        {/* <p className="print-source" style={{ textAlign: 'left', margin: '2rem 1rem 3rem 0' }}>
+          <strong>Port</strong> : <span>{port}</span>
+        </p> */}
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 1rem' }}>
+          <strong>Port</strong> : <span>{port}</span>
+        </p>
+        <br />
+        <p className="print-source" style={{ textAlign: 'left', margin: '0rem 1rem 0rem 1rem' }}>
+          <strong>Détention</strong> : <span>{detention}</span> Jours
+        </p>
+        <br />
+        <p className="print-source" style={{ textAlign: 'left', margin: '1rem 1rem 0rem 1rem' }}>
+          <strong> Total </strong> : <span>{total}</span> CDF/USD
+        </p>
+        {/* <div
           className="print-source"
           style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', width: '100%' }}
         >
@@ -77,7 +101,7 @@ class ComponentToPrintMouv extends React.PureComponent {
               })}
             </tbody>
           </table>
-        </div>
+        </div> */}
         <div
           className="print-source"
           style={{
@@ -85,17 +109,42 @@ class ComponentToPrintMouv extends React.PureComponent {
             bottom: '15%',
             right: 0,
             textAlign: 'right',
+            margin: '2rem 1rem 2rem 0'
+          }}
+        >
+          {/* <p>
+            <strong>TVA</strong>
+          </p> */}
+          <p>
+            <strong>Montant Net </strong> : {total} USD/CDF
+          </p>
+          <p>
+            <strong>Date </strong> : {date}
+          </p>
+        </div>
+        <br />
+        <div
+          className="print-source"
+          style={{
+            position: 'absolute',
+            bottom: '15%',
+            right: 0,
+            textAlign: 'left',
             margin: '3rem 1rem 3rem 0'
           }}
         >
           <p>
-            <strong>TVA</strong>
+            <strong>N.B:</strong> Facture payable 15 jours francs à compter de la date d'arrivée du
+            navire
           </p>
           <p>
-            <strong>Montant Net</strong> : {total} FC
+            <strong>Compte n° :</strong> 05100-05101-03006717401-55/USD
           </p>
           <p>
-            <strong>Date</strong> : {date}
+            <strong>Banque :</strong> RAWBANK
+          </p>
+          <p>
+            <strong>Code Swift :</strong> NCDCDKI
           </p>
         </div>
         <div
@@ -130,4 +179,4 @@ class ComponentToPrintMouv extends React.PureComponent {
   }
 }
 
-export default ComponentToPrintMouv;
+export default ComponentToPrintSurest;

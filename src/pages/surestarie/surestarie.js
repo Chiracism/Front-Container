@@ -855,8 +855,14 @@ export default function Mouvement() {
           </Box>
         </Card>
 
-        <Card className="import-card-wrapper"> </Card>
-
+        <Card className="card-botton-2-wrapper">
+          <div>
+            <Button variant="contained" color="primary" onClick={() => validateCalcul()}>
+              CALCUL SURESTARIE
+            </Button>
+          </div>
+        </Card>
+        <br />
         <Card className="card-botton-2-wrapper">
           <div>
             <ReactToPrint
@@ -871,15 +877,15 @@ export default function Mouvement() {
             />
             <ComponentToPrintSurest
               ref={componentRef}
-              client={mouvclientInput}
+              client={surestarieclientInput}
+              detention={surestariedetentionInput}
+              numero={surestarienumeroInput}
+              port={surestarieportInput}
+              size={surestariesizeInput}
+              total={surestarietotalInput}
               // total={}
               rows={[]}
             />
-          </div>
-          <div>
-            <Button variant="contained" color="primary" onClick={() => validateCalcul()}>
-              CALCUL
-            </Button>
           </div>
         </Card>
       </Container>

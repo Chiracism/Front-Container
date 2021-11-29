@@ -60,7 +60,7 @@ const TABLE_HEAD = [
   // { id: 'date_operation', label: 'Date Op.', alignRight: false },
   { id: 'montant', label: 'Montant', alignRight: false },
   { id: 'numero_recu', label: 'Numéro Réçu', alignRight: false },
-  { id: 'name', label: 'Utilisateur', alignRight: false },
+  // { id: 'name', label: 'Utilisateur', alignRight: false },
   // { id: 'date', label: 'Date', alignRight: false },
   { id: '' }
 ];
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function User() {
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState('number');
   const [selected, setSelected] = useState([]);
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
