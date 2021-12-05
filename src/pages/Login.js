@@ -43,7 +43,7 @@ export default function Login() {
         <SectionStyle style={{ flexDirection: 'column', alignItems: 'center' }}>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
             {/* Bienvenue à Lignes Maritimes Congolaises */}
-            Lignes Maritimes Congolaises
+            Lignes Maritimes Congolaises,sa
           </Typography>
           <Typography variant="h4" sx={{ px: 2, mt: 5, mb: 3 }}>
             {/* Bienvenue à Lignes Maritimes Congolaises */}
